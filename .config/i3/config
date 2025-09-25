@@ -46,7 +46,7 @@ floating_modifier $mod
 
 # move tiling windows via drag & drop by left-clicking into the title bar,
 # or left-clicking anywhere into the window while holding the floating modifier.
-tiling_drag modifier titlebar
+#tiling_drag modifier titlebar
 
 # start a terminal
 bindsym $mod+Return exec konsole
@@ -63,10 +63,10 @@ bindsym $mod+d exec --no-startup-id dmenu_run
 # bindcode $mod+40 exec --no-startup-id i3-dmenu-desktop
 
 # change focus
-bindsym $mod+h focus left
-bindsym $mod+j focus down
-bindsym $mod+k focus up
-bindsym $mod+l focus right
+bindsym $mod+j focus left
+bindsym $mod+k focus down
+bindsym $mod+l focus up
+bindsym $mod+semicolon focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -87,7 +87,7 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod+h split h
+bindsym $mod+g split h
 
 # split in vertical orientation
 bindsym $mod+v split v
@@ -221,11 +221,11 @@ assign [class="Spotify"] 3
 # Start feh and set the horseshoe nebula background
 exec --no-startup-id feh --bg-scale ~/Pictures/110230.jpg
 # Start picom (compositor), current config just adds rounded borders
-exec_always --no-startup-id picom -bc --config ~/.config/picom
+exec_always --no-startup-id picom -bc --config ~/.config/picom/picom.conf
 # Assign workspaces to their monitors
 workspace 1 output DP-0
 workspace 3 output DP-0
-workspace 2 output DP-5
-workspace 4 output DP-5
+workspace 2 output DP-3
+workspace 4 output DP-3
 # Remove unwanted startup window
 for_window [title="Desktop @ QRect.*"] kill; floating enable; border none
