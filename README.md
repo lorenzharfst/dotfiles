@@ -1,7 +1,7 @@
 ### Description
 Contains configurations for
-* i3
-* picom
+* i3 picom
+* kitty
 * nvim
 ### Instructions (assumes you're using OpenSUSE)
 1. `sudo zypper in i3-gaps picom stow neovim feh kitty`
