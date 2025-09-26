@@ -4,8 +4,8 @@ Contains configurations for
 * picom
 * nvim
 ### Instructions (assumes you're using OpenSUSE)
-1. `sudo zypper in i3-gaps picom stow neovim`
-2. Stow the items in your home directory with --target (`stow --target=/home/kodex dotfiles`)
+1. `sudo zypper in i3-gaps picom stow neovim feh`
+2. Stow the items from the dotfiles folder (`stow --target=/home/kodex .`)
 3. Create a user-level service (`~/.config/systemd/user/i3.service`)
 ```
 [Install]
