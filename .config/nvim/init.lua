@@ -28,15 +28,23 @@ require('lazy').setup({
 		dependencies = { 'nvim-lua/plenary.nvim' }
 	},
 	{'feline-nvim/feline.nvim', config = function(plugin) vim.cmd('set termguicolors') require('feline').setup() end},
-	{
-	  "folke/tokyonight.nvim",
-	  lazy = false,
-	  priority = 1000,
-	  opts = {},
-	  config = function()
-		  vim.cmd('colorscheme tokyonight')
-	  end
-	},
+        -- Theme 1
+        { "catppuccin/nvim", 
+        name = "catppuccin", 
+        priority = 1000,
+        config = function()
+            vim.cmd('colorscheme catppuccin')
+        end },
+        -- Theme 2
+        --{
+	--  "folke/tokyonight.nvim",
+	--  lazy = false,
+	--  priority = 1000,
+	--  opts = {},
+	--  config = function()
+	--	  vim.cmd('colorscheme tokyonight')
+	--  end
+	--},
 	{ "EdenEast/nightfox.nvim" },
 	{ "williamboman/mason.nvim" },
 	{ "williamboman/mason-lspconfig.nvim" },
