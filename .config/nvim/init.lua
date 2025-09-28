@@ -52,7 +52,8 @@ require('lazy').setup({
 	-- Automatically sync shell background colour with nvims
 	{ "typicode/bg.nvim", lazy = false},
         -- Plugin for the Java LSP jdtls
-        { "mfussenegger/nvim-jdtls"}
+        -- Commented out because I'm trying out stuff
+        --{ "mfussenegger/nvim-jdtls"}
     })
 -- COMMANDS ON STARTUP
 vim.cmd('set number')

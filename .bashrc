@@ -28,7 +28,7 @@
 test -s ~/.alias && . ~/.alias || true
 
 # Symbols list for easy reference
-# ╭ ─ ╼ ╰ ► ┌ └ 
+# ╭ ─ ╼ ╰ ► ┌ └  
 # ---------------------
 # Command prompt ricing
 # ---------------------
@@ -39,7 +39,8 @@ function parse_git_branch() {
 	if [ ! "${BRANCH}" == "" ]
 	then
 		STAT=`parse_git_dirty`
-		echo "[${BRANCH}${STAT}]"
+		# echo "  ${BRANCH}${STAT}"
+		echo " ${BRANCH}"
 	else
 		echo ""
 	fi
@@ -81,5 +82,5 @@ function parse_git_dirty {
 }
 
 export PS1=" "
-export PS1="\n┌\e[47m\e[1;30m\u   \`parse_git_branch\`\w\e[0m\e[1;37m\e[0m\n└─► "
+export PS1="\n┌\e[47m\e[1;30m\u@\w\`parse_git_branch\`\e[0m\e[1;37m\e[0m\n└─► "
 #export PS1='\w'

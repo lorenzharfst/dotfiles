@@ -1,0 +1,11 @@
+[Install]
+WantedBy=plasma-workspace.target
+
+[Unit]
+Description=Hide the mouse if idle
+Before=plasma-workspace.target
+
+[Service]
+ExecStart=/usr/bin/unclutter
+Slice=session.slice
+Restart=on-failure
