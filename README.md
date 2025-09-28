@@ -4,7 +4,7 @@ Contains configurations for
 * kitty
 * nvim
 ### Instructions (assumes you're using OpenSUSE)
-1. `sudo zypper in i3-gaps picom stow neovim feh kitty`
+1. `sudo zypper in i3-gaps picom stow neovim feh kitty unclutter`
 2. Stow the items from the dotfiles folder (`stow --target=/home/kodex .`)
 4. Mask KWin at user level (`systemctl --user mask plasma-kwin_x11`)
 5. Start the service (`systemctl --user start i3`)
