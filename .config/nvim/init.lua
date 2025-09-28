@@ -58,9 +58,9 @@ require('lazy').setup({
 vim.cmd('set number')
 vim.cmd('set shiftwidth=4 smarttab')
 vim.cmd('set expandtab')
--- LSPS
+-- LSPs
 require("mason").setup()
--- js
+-- Java
 require"lspconfig".jdtls.setup{}
 -- Keys for Telescope
 local builtin = require('telescope.builtin')
@@ -76,4 +76,20 @@ vim.api.nvim_create_autocmd('LspAttach', {
         vim.keymap.set('n', '<leader>la', vim.lsp.buf.code_action, { buffer = args.buf, desc = 'Show LSP action menu' })
         vim.keymap.set('n', '<leader>ld', vim.lsp.buf.definition, { buffer = args.buf, desc = 'Jump to the definition of the symbol' })
     end
+})
+-- Enable autocompletion
+--vim.cmd[[set completeopt+=menuone,noselect,popup]]
+vim.cmd[[set completeopt+=menuone,longest,popup]]
+--vim.cmd('set completeopt=noselect')
+vim.lsp.start({
+    name = 'jdtls_autocomplete',
+    cmd = {'jdtls'},
+    on_attach = function(client, bufnr)
+        vim.lsp.completion.enable(true, client.id, bufnr, {
+            autotrigger = true,
+            convert = function(item)
+                return { abbr = item.label:gsub('%b()', '') }
+            end,
+        })
+    end,
 })
