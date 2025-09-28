@@ -52,15 +52,15 @@ require('lazy').setup({
 	-- Automatically sync shell background colour with nvims
 	{ "typicode/bg.nvim", lazy = false},
         -- Plugin for the Java LSP jdtls
-        -- Commented out because I'm trying out stuff
-        --{ "mfussenegger/nvim-jdtls"}
+        { "mfussenegger/nvim-jdtls"}
     })
 -- COMMANDS ON STARTUP
 vim.cmd('set number')
 vim.cmd('set shiftwidth=4 smarttab')
 vim.cmd('set expandtab')
--- WIP LSP: Language server for js
+-- LSPS
 require("mason").setup()
+-- js
 require"lspconfig".jdtls.setup{}
 -- Keys for Telescope
 local builtin = require('telescope.builtin')
@@ -69,9 +69,11 @@ vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Find inside files
 vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Find in buffers' })
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Find in help tags' })
 -- Keys for LSPs (only when an LSP client is running)
+-- Essentially it's saying: If there's an LSP attached, add these keys
 vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(args)
-        vim.keymap.set('n', '<leader>h', vim.lsp.buf.hover, { buffer = args.buf, desc = 'Show LSP hover function' })
-        vim.keymap.set('n', '<leader>a', vim.lsp.buf.code_action, { buffer = args.buf, desc = 'Show LSP action menu' })
+        vim.keymap.set('n', '<leader>lh', vim.lsp.buf.hover, { buffer = args.buf, desc = 'Show LSP hover function' })
+        vim.keymap.set('n', '<leader>la', vim.lsp.buf.code_action, { buffer = args.buf, desc = 'Show LSP action menu' })
+        vim.keymap.set('n', '<leader>ld', vim.lsp.buf.definition, { buffer = args.buf, desc = 'Jump to the definition of the symbol' })
     end
 })

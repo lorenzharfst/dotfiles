@@ -84,3 +84,5 @@ function parse_git_dirty {
 export PS1=" "
 export PS1="\n┌\e[47m\e[1;30m\u@\w\`parse_git_branch\`\e[0m\e[1;37m\e[0m\n└─► "
 #export PS1='\w'
+#nvim
+export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
