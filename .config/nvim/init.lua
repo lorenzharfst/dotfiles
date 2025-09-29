@@ -58,6 +58,7 @@ require('lazy').setup({
 vim.cmd('set number')
 vim.cmd('set shiftwidth=4 smarttab')
 vim.cmd('set expandtab')
+vim.g.mapleader = " "
 -- LSPs
 require("mason").setup()
 -- Java
