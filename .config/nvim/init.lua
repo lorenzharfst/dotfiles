@@ -20,8 +20,7 @@ require('lazy').setup({
 	config = function()
 		require('nvim-tree').setup {}
 		-- MAPPINGS 
-		vim.cmd('imap <C-b> :NvimTreeToggle<CR>')
-		vim.cmd('nmap <C-b> :NvimTreeToggle<CR>')
+		vim.cmd('imap <C-b> :NvimTreeToggle<CR>') vim.cmd('nmap <C-b> :NvimTreeToggle<CR>')
 	end},
 	{
 		'nvim-telescope/telescope.nvim', tag = '0.1.6',
@@ -56,13 +55,14 @@ require('lazy').setup({
     })
 -- COMMANDS ON STARTUP
 vim.cmd('set number')
+vim.cmd('set relativenumber')
 vim.cmd('set shiftwidth=4 smarttab')
 vim.cmd('set expandtab')
 vim.g.mapleader = " "
 -- LSPs
 require("mason").setup()
 -- Java
-require"lspconfig".jdtls.setup{}
+vim.lsp.enable("jdtls")
 -- Keys for Telescope
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Find in filenames' })
@@ -73,14 +73,16 @@ vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Find in help tags
 -- Essentially it's saying: If there's an LSP attached, add these keys
 vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(args)
-        vim.keymap.set('n', '<leader>lh', vim.lsp.buf.hover, { buffer = args.buf, desc = 'Show LSP hover function' })
-        vim.keymap.set('n', '<leader>la', vim.lsp.buf.code_action, { buffer = args.buf, desc = 'Show LSP action menu' })
-        vim.keymap.set('n', '<leader>ld', vim.lsp.buf.definition, { buffer = args.buf, desc = 'Jump to the definition of the symbol' })
+        vim.keymap.set('n', '<leader>h', vim.lsp.buf.hover, { buffer = args.buf, desc = 'Show LSP hover function' })
+        vim.keymap.set('n', '<leader>a', vim.lsp.buf.code_action, { buffer = args.buf, desc = 'Show LSP action menu' })
+        vim.keymap.set('n', '<leader>d', vim.lsp.buf.definition, { buffer = args.buf, desc = 'Jump to the definition of the symbol' })
+        vim.keymap.set('n', '<leader>m', vim.diagnostic.open_float, { buffer = args.buf, desc = 'Show diagnostics' })
+        vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, { buffer = args.buf, desc = 'Show diagnostics' })
     end
 })
--- Enable autocompletion
---vim.cmd[[set completeopt+=menuone,noselect,popup]]
-vim.cmd[[set completeopt+=menuone,longest,popup]]
+-- Enable autocompletion, keys are C-x C-o (until I install the completion plugin)
+vim.cmd[[set completeopt+=menuone,noselect,popup]]
+--vim.cmd[[set completeopt+=menuone,longest,popup]]
 --vim.cmd('set completeopt=noselect')
 vim.lsp.start({
     name = 'jdtls_autocomplete',

@@ -40,7 +40,7 @@ function parse_git_branch() {
 	then
 		STAT=`parse_git_dirty`
 		# echo "  ${BRANCH}${STAT}"
-		echo " ${BRANCH}"
+		echo " ${BRANCH}${STAT}"
 	else
 		echo ""
 	fi
@@ -84,5 +84,10 @@ function parse_git_dirty {
 export PS1=" "
 export PS1="\n┌\e[47m\e[1;30m\u@\w\`parse_git_branch\`\e[0m\e[1;37m\e[0m\n└─► "
 #export PS1='\w'
-#nvim
+#nvim (not from zypper)
 export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
+#add alias for my main 2 projects
+alias p1='cd /home/kodex/Programming/managr/'
+alias p2='cd /home/kodex/Projects/ticketsolutions/backend'
+
+. "$HOME/.cargo/env"

@@ -219,8 +219,8 @@ focus_follows_mouse no
 assign [class="discord"] 3
 assign [class="spotify"] 3
 assign [class="Spotify"] 3
-# Start feh and set the horseshoe nebula background
-exec --no-startup-id feh --bg-scale ~/Pictures/Wallpaper/1.png
+# Start feh to set a background
+exec --no-startup-id feh --bg-scale ~/Pictures/Wallpaper/4.png
 # Start picom (compositor), current config just adds rounded borders
 exec_always --no-startup-id picom -bc --config ~/.config/picom/picom.conf
 # Assign workspaces to their monitors
