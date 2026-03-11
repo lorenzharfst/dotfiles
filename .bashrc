@@ -87,7 +87,10 @@ export PS1="\n┌\e[47m\e[1;30m\u@\w\`parse_git_branch\`\e[0m\e[1;37m\e[0m
 #nvim (not from zypper)
 export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 #add alias for my main 2 projects
-alias p1='cd /home/kodex/Programming/managr/'
+alias p1='cd /home/kodex/Programming/managr/src/main'
 alias p2='cd /home/kodex/Projects/ticketsolutions/backend'
 
 . "$HOME/.cargo/env"
+
+# Added by `rbenv init` on Wed Mar 11 15:46:01 CET 2026
+eval "$(rbenv init - --no-rehash bash)"

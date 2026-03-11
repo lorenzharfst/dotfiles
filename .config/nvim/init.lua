@@ -11,7 +11,8 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 	end
 vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
-    {'nvim-tree/nvim-tree.lua',
+    {
+        'nvim-tree/nvim-tree.lua',
 	version = '*',
 	lazy = false,
 	dependencies = {
@@ -22,37 +23,62 @@ require('lazy').setup({
 		-- MAPPINGS 
 		vim.cmd('imap <C-b> :NvimTreeToggle<CR>') vim.cmd('nmap <C-b> :NvimTreeToggle<CR>')
 	end},
-	{
-		'nvim-telescope/telescope.nvim', tag = '0.1.6',
-		dependencies = { 'nvim-lua/plenary.nvim' }
-	},
-	{'feline-nvim/feline.nvim', config = function(plugin) vim.cmd('set termguicolors') require('feline').setup() end},
-        -- Theme 1
-        { "catppuccin/nvim", 
+    {
+        'nvim-telescope/telescope.nvim', tag = '0.1.6',
+        dependencies = { 'nvim-lua/plenary.nvim' }
+    },
+    {
+        'feline-nvim/feline.nvim', config = function(plugin) vim.cmd('set termguicolors') require('feline').setup() end
+    },
+    -- Theme 1
+    { 
+        "catppuccin/nvim", 
         name = "catppuccin", 
         priority = 1000,
         config = function()
             vim.cmd('colorscheme catppuccin')
-        end },
-        -- Theme 2
-        --{
-	--  "folke/tokyonight.nvim",
-	--  lazy = false,
-	--  priority = 1000,
-	--  opts = {},
-	--  config = function()
-	--	  vim.cmd('colorscheme tokyonight')
-	--  end
-	--},
-	{ "EdenEast/nightfox.nvim" },
-	{ "williamboman/mason.nvim" },
-	{ "williamboman/mason-lspconfig.nvim" },
-	{ 'neovim/nvim-lspconfig' },
-	-- Automatically sync shell background colour with nvims
-	{ "typicode/bg.nvim", lazy = false},
-        -- Plugin for the Java LSP jdtls
-        { "mfussenegger/nvim-jdtls"}
-    })
+        end 
+    },
+    -- Theme 2
+    --{
+    --  "folke/tokyonight.nvim",
+    --  lazy = false,
+    --  priority = 1000,
+    --  opts = {},
+    --  config = function()
+    --	  vim.cmd('colorscheme tokyonight')
+    --  end
+    --},
+    { 
+        "EdenEast/nightfox.nvim" 
+    },
+    { 
+        "williamboman/mason.nvim" 
+    },
+    {
+        "mason-org/mason-lspconfig.nvim",
+        opts = {},
+        dependencies = {
+            { "mason-org/mason.nvim", opts = {} },
+            "neovim/nvim-lspconfig",
+        },
+    },
+    { 
+        'neovim/nvim-lspconfig' 
+    },
+    -- Automatically sync shell background colour with nvims
+    { 
+        "typicode/bg.nvim", lazy = false
+    },
+    -- Plugin for the Java LSP jdtls
+    { 
+        "mfussenegger/nvim-jdtls"
+    },
+    -- Plugin for the Angular LSP
+    { 
+        'joeveiga/ng.nvim' 
+    }
+})
 -- COMMANDS ON STARTUP
 vim.cmd('set number')
 vim.cmd('set relativenumber')
@@ -63,6 +89,20 @@ vim.g.mapleader = " "
 require("mason").setup()
 -- Java
 vim.lsp.enable("jdtls")
+-- Angular
+-- Put on hold until I code with Angular again
+-- Placeholder path to test if the lsp works
+--local project_library_path = "/home/kodex/angulartest/"
+--local cmd = { "ngserver", "--stdio", "--tsProbeLocations", project_library_path, "--ngProbeLocations", project_library_path }
+--vim.lsp.config( 'angularls', { cmd = cmd })
+--vim.lsp.enable('angularls')
+-- Ruby
+vim.lsp.config['ruby-lsp'] = {
+    cmd = { 'ruby-lsp' },
+    filetypes = { 'rb', 'ruby', 'eruby' },
+    root_markers = { '.git' }
+}
+vim.lsp.enable('ruby-lsp')
 -- Keys for Telescope
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Find in filenames' })
@@ -80,13 +120,14 @@ vim.api.nvim_create_autocmd('LspAttach', {
         vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, { buffer = args.buf, desc = 'Show diagnostics' })
     end
 })
--- Enable autocompletion, keys are C-x C-o (until I install the completion plugin)
+-- Enable autocompletion, default keys are C-x C-o (until I install the completion plugin)
 vim.cmd[[set completeopt+=menuone,noselect,popup]]
 --vim.cmd[[set completeopt+=menuone,longest,popup]]
 --vim.cmd('set completeopt=noselect')
 vim.lsp.start({
     name = 'jdtls_autocomplete',
     cmd = {'jdtls'},
+    filetypes = {'java'},
     on_attach = function(client, bufnr)
         vim.lsp.completion.enable(true, client.id, bufnr, {
             autotrigger = true,

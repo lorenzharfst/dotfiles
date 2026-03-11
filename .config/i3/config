@@ -217,7 +217,6 @@ gaps inner 4
 focus_follows_mouse no
 # Assign apps to default workspaces
 # 4 is usually for messaging apps, 3 is for "other" things related to the session
-assign [class="discord"] 4
 assign [class="spotify"] 3
 assign [class="Spotify"] 3
 # Start feh to set a background
@@ -232,5 +231,3 @@ workspace 1 output DP-3
 workspace 3 output DP-3
 # Remove unwanted startup window
 for_window [title="Desktop @ QRect.*"] kill; floating enable; border none
-# TEST Disable fullscreen for librewolf
-for_window [class="librewolf"] fullscreen disable
