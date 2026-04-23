@@ -87,7 +87,7 @@ export PS1="\n┌\e[47m\e[1;30m\u@\w\`parse_git_branch\`\e[0m\e[1;37m\e[0m
 #nvim (not from zypper)
 export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 #add alias for my main 2 projects
-alias p1='cd /home/kodex/Programming/managr/src/main'
+alias p1='cd /home/kodex/Programming/event-reminder'
 alias p2='cd /home/kodex/Projects/ticketsolutions/backend'
 
 . "$HOME/.cargo/env"

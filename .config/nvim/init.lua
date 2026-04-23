@@ -77,6 +77,15 @@ require('lazy').setup({
     -- Plugin for the Angular LSP
     { 
         'joeveiga/ng.nvim' 
+    },
+    {
+--        Commented out for now as I cba to figure out debugging
+--        "mfusenegger/nvim-dap"
+    },
+    {
+        'MeanderingProgrammer/render-markdown.nvim',
+        dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
+        opts = {},
     }
 })
 -- COMMANDS ON STARTUP
@@ -98,9 +107,31 @@ vim.lsp.enable("jdtls")
 --vim.lsp.enable('angularls')
 -- Ruby
 vim.lsp.config['ruby-lsp'] = {
-    cmd = { 'ruby-lsp' },
-    filetypes = { 'rb', 'ruby', 'eruby' },
-    root_markers = { '.git' }
+    cmd = { "ruby-lsp" },
+    filetypes = { "ruby", "eruby" },
+    init_options = {
+        enabledFeatures = {
+            codeActions= true,
+            codeLens= true,
+            completion= true,
+            definition= true,
+            diagnostics= true,
+            documentHighlights= true,
+            documentLink= true,
+            documentSymbols= true,
+            foldingRanges= true,
+            formatting= true,
+            hover= true,
+            inlayHint= true,
+            onTypeFormatting= true,
+            selectionRanges= true,
+            semanticHighlighting= true,
+            signatureHelp= true,
+            typeHierarchy= true,
+            workspaceSymbol= true
+        },
+        formatter = "auto"
+    },
 }
 vim.lsp.enable('ruby-lsp')
 -- Keys for Telescope
@@ -111,6 +142,7 @@ vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Find in buffers' })
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Find in help tags' })
 -- Keys for LSPs (only when an LSP client is running)
 -- Essentially it's saying: If there's an LSP attached, add these keys
+-- Honestly I created this before realising that there are defaults (neoviom.io/doc/user/lsp/#_defaults), might as well use those
 vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(args)
         vim.keymap.set('n', '<leader>h', vim.lsp.buf.hover, { buffer = args.buf, desc = 'Show LSP hover function' })
@@ -129,11 +161,33 @@ vim.lsp.start({
     cmd = {'jdtls'},
     filetypes = {'java'},
     on_attach = function(client, bufnr)
+        client.server_capabilities.completionProvider.triggerCharacters = {'.'}
         vim.lsp.completion.enable(true, client.id, bufnr, {
             autotrigger = true,
             convert = function(item)
                 return { abbr = item.label:gsub('%b()', '') }
             end,
         })
+    end,
+})
+-- Ruby autocomplete
+vim.lsp.start({
+    name = 'ruby-lsp_autocomplete',
+    cmd = {'ruby-lsp'},
+    on_attach = function(client, bufnr)
+        client.server_capabilities.completionProvider.triggerCharacters = {'.'}
+        vim.lsp.completion.enable(true, client.id, bufnr, {
+            autotrigger = true,
+            convert = function(item)
+                return { abbr = item.label:gsub('%b()', '') }
+            end,
+        })
+    end,
+})
+-- Call treesitter for highlighting for markdown type files
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = { "markdown", "md" },
+    callback = function()
+        vim.treesitter.start()
     end,
 })
